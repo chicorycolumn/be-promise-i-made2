@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test-utils": "mocha spec/utils.spec.js",
-    "dev": "nodemon listen.js"
+    "test-utils": "mocha spec/utils.spec.js"
   },
   "keywords": [],
   "author": "",
