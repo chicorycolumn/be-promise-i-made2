@@ -1,33 +1,27 @@
 # Promises. Promises
 
-You are in charge of creating a new improved version of Spotify. Not only are they adding features but they've promisified all their functions.
+You are in charge of creating a new improved version of Spotify.
 
-You will be creating an api build on "spotify data". You will allow users to request songs, lyrics. You will also provide some new services like analysing song lyrics, allowing users to change their favourite songs to number 1 in the charts.
+You will be creating an api built upon "Spotify data". You will allow users to request songs and lyrics. You will also add some new services like analysing song lyrics and allowing users to place their favourite songs at number 1 in the charts.
 
-To achieve this you have a series of utility functions provided for you. Every function is Promise based and mocks a real request over the internet - you will have extra meta information like status codes in the response of these utility functions, and if things go wrong you may get the dreaded 404 Not found so make full use of your promise `.catch` method.
+To achieve this you have an api serving you Spotify data (our very own `nc-spotify`).   This api serves up songs, albums, artists and more. You can use a variety of HTTP methods `GET`/`POST`/`PATCH`/`DELETE` on these endpoints. You will build your own api that should interact with `nc-spotify` using the promise based library [`axios`](https://github.com/axios/axios) to make http requests.
 
-## Utility functions AVAILABLE
-
-- `requestAllSongs` takes no arguments, responds with an array of song objects
-
-- `getAlbums` takes no arguments, responds with an array of album title strings
-
-- `requestSongByTitle` takes a song title, responds with a single song object
-
-- `requestSongLyrics` takes a song title, responds with a lyrics string
-
-- `getSongAnalysis` takes a full set of lyrics (string) as its argument, responds with an analysis object
-
-- `postAlbum` takes an album title, responds with the posted song object
-
-- `changeChartPosition` takes an object `{track: <songtitle>, position; number}`, responds with the updated song object
+You should use Insomnia to make requests to your api and make sure you are sending back the appropriate responses.
 
 ## DAY 1
 
-1. GET `/albums`
+To get started go to the [nc-spotify server](https://nc-spotify.herokuapp.com/) and get familiar with the endpoints available. On the site there is a readme to help navigate around the endpoints but in general the endpoints are 
 
-- This will take no user input on the request.
-- Once you have the albums back from "Spotify", make sure you don't send back to your client the extra fluff, e.g. status codes and data - your response should fit the following format.
+```js
+`/<resource_name>/` // to interact with all of a resource e.g. albums
+`/<resource_name>/<resource_id` // to interact with a specific resource e.g. album by id
+`/resource_name?query=value` // to interact with a specific resource by any other identifier than id e.g. by chart_position
+```
+
+### 1. GET all albums
+
+- This route will not accept any queries.
+- Once you have the albums back from "Spotify" (AKA: `nc-spotify`), you will need to format the data so that your response fits the following format:
 
 ```js
 {
@@ -40,47 +34,56 @@ To achieve this you have a series of utility functions provided for you. Every f
 }
 ```
 
-2.a GET `/tracks` get all songs.
+### 2.a GET all songs.
 
 ```js
 {
   "songs": [
     {
+      "id":1
       "title": "Find No Enemy",
-      "artist": "Akala",
-      "album": 0,
+      "artistId": 1,
+      "albumId": 0,
       "chart_position": 0
     },
     {
+      "id":2
       "title": "Baby Shark",
-      "artist": "Pinkfong",
-      "album": 3,
+      "artistId": 2,
+      "albumId": 3,
       "chart_position": 0
     }...
 ```
 
-2.b Add some extra functionality to the `/tracks` endpoint, allow for an album query e.g.`?album=3` to get all the songs for an album.
+### 2.b Add some extra functionality to this endpoint, allow for a query e.g.`?album=3`to get all the songs for an album.
+
+ADVANCED: Make this endpoint work for multiple queries (e.g. `album` AND `chart_position`)
+
+- _HINT: if are doing the advanced option have a look at the [axios documentation](https://github.com/axios/axios#example) for making requests with queries._
 
 ```js
+// ?album=3
 {
   "songs": [
     {
+      "id":2
       "title": "Baby Shark",
-      "artist": "Pinkfong",
-      "album": 3,
+      "artistId": 4,
+      "albumId": 3,
       "chart_position": 0
     }
   ]
 }
 ```
 
-3. GET `/tracks/:track_title` get song by track
+### 3a. GET song by its id
 
-- This endpoint should take a track title on the url
+- This endpoint should take a _song id_ in the url as a parametric endpoint
 
 ```js
 {
   song: {
+      id: 1,
       title: "Find No Enemy",
       artist: "Akala",
       album: 0,
@@ -89,10 +92,20 @@ To achieve this you have a series of utility functions provided for you. Every f
 }
 ```
 
-4. GET `/lyrics/:track_id` or GET `tracks/:track_id/lyrics` get lyrics for a song by its title.
+### 3b. If no track is found e.g. when you search for something that isn't already in the list of songs, send the client back a 404 HTTP status and response
 
-- This endpoint should take a track title on the url
-- This endpoint should also put the song title onto the client response
+```js
+// status 404 and
+{
+  msg: 'Song not found';
+}
+```
+
+### 4. GET lyrics for a song by its title.
+
+- This endpoint should take a _song title_ in the url as a parametric endpoint
+- _HINT: to request the lyrics you must know the song's id first_
+- This endpoint should also include the song title onto the response body
 
 ```js
 {
@@ -101,10 +114,10 @@ To achieve this you have a series of utility functions provided for you. Every f
 }
 ```
 
-5. GET `tracks/:track_title/analysis` get analysis for a song
+### 5. GET analysis for a song
 
-- This endpoint should take a track title on the url.
-- This endpoint will entail more steps for your controller to manage, stop and think how many utility functions you may need to use.
+- This endpoint should take a _song title_ in the url as a parametric endpoint
+- _HINT: to request a song's analysis of you must know the song's id first_
 
 ```js
 {
@@ -117,37 +130,45 @@ To achieve this you have a series of utility functions provided for you. Every f
 }
 ```
 
-6. POST `/albums`
+### 6. POST an album
 
-- This endpoint should take an album title on the request body e.g.
+- This endpoint should take an album title and an artist's id on the request body e.g.
 
-```js
+```json
 {
-  title: 'My Fav album';
+  "title": "your new album title",
+  "artistId": "your new artist Id"
 }
 ```
+
+- You should validate information from the user is correct before posting. If things go terribly wrong tutors can reset the database from scratch so let them know!
 
 - You should send an appropriate status code to the client with a response like below
 
 ```js
 {
   album: {
+    id: 'your new album id',
     title:'your added album title',
+    artistId: 'your added artist Id'
     added: true
 }
 ```
 
-7. PATCH `tracks/:track_title` change chart position
+### 7. PATCH a song's chart position
 
-- This endpoint should take an album title on the url and a value to change the chart position by on the request body e.g.
+- This endpoint should take song identifier as a parametric value in the url and a value to change the chart position by on the request body e.g.
 
-```js
+```json
 {
-  newPosition: 2;
+  "newPosition": 2;
 }
 ```
 
-Your client response should look like:
+- _HINT: to use `patch` on `nc-spotify`, you must use a parametric request (:id) and not a query_
+- _HINT: on success the `nc-spotify` responds with the updated object_
+
+Your client response should be formatted as the following:
 
 ```js
 {
@@ -160,15 +181,16 @@ Your client response should look like:
 }
 ```
 
-8. Error handling - You should now go back and utelise error handling middleware and `catch` to send tailored error messages to your user should they do something wrong
-   Some example wrong doings might be
+### 8. Error handling - You should now go back and utilise error handling middleware and `.catch` to send tailored error messages to your user should something go wrong
 
-- `tracks/track_that_doesnt_exist` - 404
-- on Post or Patches if the user doesn't provide the right information on the request body: keys and values!
+Some example errors that could occur:
 
-### DAY 2 - Using Promise.all
+- `GET /api/tracks/track_that_doesnt_exist` - 404
+- POST or PATCH with incorrect information on the request body: Wrong/missing keys and/or incorrect values!
 
-1. Refactor getting a songs lyrics (Day 1 task 4) to get the song object and its lyrics at once
+## DAY 2 - Using Promise.all
+
+### 1. Refactor getting a song's lyrics (Day 1 task 4) to send the song object and its lyrics all at once to send together on the response in the following format:
 
 ```js
 {
@@ -178,10 +200,14 @@ Your client response should look like:
     "album": "I am Sasha Fierce",
     "chart_position": 2
   },
-  "lyrics": `"gettin' bodied\n(If you ready, get it ready) gettin' bodied\n(Let's get it and drop it) hey\nGive it up for my sister!\nAll right now\nEverybody put your hands together\nDo we have any single ladies in the house tonight?\nsing\nAll the single ladies (All the single ladies)\nAll the single ladies (All the single ladies)\nAll the s`
+  "lyrics": `"gettin' bodied\n(If you ready, get it ready) gettin' bodied\n(Let's get it and drop it) hey\nGive it up for my sister!\nAll right now\nEverybody put your hands together\nDo we have any single ladies in the house tonight?\nsing\nAll the single ladies (All the single ladies)\nAll the single ladies (All the single ladies)\nAll the s`...
 ```
 
-2. Refactor getting a song by track_title (Day 1 task 3) to replace the album number with the album title - this will needing a call to `getAlbums`. You should place this extra functionality in the model as it deals with data and formatting.
+### 2. Refactor GET analysis for a song (Day 1 task 5) to get the lyrics and the analysis
+
+- _HINT: you don't need to wait for the lyrics to come back before you get the analysis_
+
+### 3. Refactor getting a song by track_id (Day 1 task 3) to replace the album number with the album title (You may need to make a second request for that particular album).
 
 ```js
 {
@@ -194,7 +220,11 @@ Your client response should look like:
 }
 ```
 
-3. ADVANCED - get all songs and replace all album numbers with album titles - this will need to make a call to `getAlbums`
+### 4.a ADVANCED -- make an endpoint that will take the newData.txt file on the request body and post it to the database
+
+- This endpoint should make use of `fs` and the `Promise` constructor
+
+### 4.b extra ADVANCED - get all songs and replace all album numbers with album titles
 
 ```js
 {
@@ -213,6 +243,9 @@ Your client response should look like:
     }
 ```
 
-3.b optional ADVANCED -- make your own Spotify endpoint inside the utils/spotify file using your own new Promise constructor -- have a look at the other ones for reference
+### 5. Create a new branch on your project - [here's a great tutorial on git branches](https://www.atlassian.com/git/tutorials/using-branches)and refactor your GET endpoints to render EJS files.
 
-4. style with EJS!
+Useful links:
+- [Express template engines](https://expressjs.com/en/guide/using-template-engines.html)
+- [EJS](https://ejs.co/)
+- [Templating with EJS guide](https://scotch.io/tutorials/use-ejs-to-template-your-node-application)

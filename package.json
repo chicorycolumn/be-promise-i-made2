@@ -1,18 +1,12 @@
 {
-  "name": "promise-I-made",
+  "name": "be-promise-i-made",
   "version": "1.0.0",
-  "description": "",
+  "description": "a spotify themed sprint to practice using promises and third party apis",
   "main": "index.js",
-  "scripts": {
-    "test-utils": "mocha spec/utils.spec.js"
-  },
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-  },
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^6.2.0"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }
