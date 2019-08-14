@@ -243,7 +243,7 @@ Some example errors that could occur:
     }
 ```
 
-### 5. Create a new branch on your project - [here's a great tutorial on git branches](https://www.atlassian.com/git/tutorials/using-branches)and refactor your GET endpoints to render EJS files.
+### 5. Create a new branch on your project - [here's a great tutorial on git branches](https://www.atlassian.com/git/tutorials/using-branches) and refactor your GET endpoints to render EJS files.
 
 Useful links:
 - [Express template engines](https://expressjs.com/en/guide/using-template-engines.html)
