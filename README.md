@@ -224,7 +224,7 @@ Some example errors that could occur:
 
 - This endpoint should make use of `fs` and the `Promise` constructor
 
-### 4.b extra ADVANCED - get all songs and replace all album numbers with album titles
+### 4.b (Optional) extra ADVANCED - get all songs and replace all album numbers with album titles
 
 ```js
 {
