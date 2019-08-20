@@ -57,6 +57,8 @@ To get started go to the [nc-spotify server](https://nc-spotify.herokuapp.com/) 
 
 ### 2.b Add some extra functionality to this endpoint, allow for a query e.g.`?album=3`to get all the songs for an album.
 
+- _NOTE: treat this task as if you were using a production database with millions of entries. Be wary of fetching too much data just to filter it down_
+
 ADVANCED: Make this endpoint work for multiple queries (e.g. `album` AND `chart_position`)
 
 - _HINT: if are doing the advanced option have a look at the [axios documentation](https://github.com/axios/axios#example) for making requests with queries._
