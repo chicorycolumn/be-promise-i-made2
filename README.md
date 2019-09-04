@@ -10,11 +10,12 @@ You should use Insomnia to make requests to your api and make sure you are sendi
 
 ## DAY 1
 
-To get started go to the [nc-spotify server](https://nc-spotify.herokuapp.com/) and get familiar with the endpoints available. On the site there is a readme to help navigate around the endpoints but in general the endpoints are
+To get started go to the [nc-spotify server](https://nc-spotify.herokuapp.com/) and get familiar with the endpoints available. On the site there is a readme to help navigate around the endpoints but in general the endpoints are:
 
-```js
-`/<resource_name>/``/<resource_name>/<resource_id``/resource_name?query=value`; // to interact with all of a resource e.g. albums // to interact with a specific resource e.g. album by id // to interact with a specific resource by any other identifier than id e.g. by chart_position
-```
+
+* `/<resource_name>/` - to interact with all of a resource e.g. albums
+* `/<resource_name>/<resource_id` - to interact with a specific resource e.g. album by id
+* `/resource_name?query=value` to interact with a specific resource by any other identifier than id e.g. by chart_position.
 
 ### 1. GET all albums
 
