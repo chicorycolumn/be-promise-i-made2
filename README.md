@@ -4,18 +4,16 @@ You are in charge of creating a new improved version of Spotify.
 
 You will be creating an api built upon "Spotify data". You will allow users to request songs and lyrics. You will also add some new services like analysing song lyrics and allowing users to place their favourite songs at number 1 in the charts.
 
-To achieve this you have an api serving you Spotify data (our very own `nc-spotify`).   This api serves up songs, albums, artists and more. You can use a variety of HTTP methods `GET`/`POST`/`PATCH`/`DELETE` on these endpoints. You will build your own api that should interact with `nc-spotify` using the promise based library [`axios`](https://github.com/axios/axios) to make http requests.
+To achieve this you have an api serving you Spotify data (our very own `nc-spotify`). This api serves up songs, albums, artists and more. You can use a variety of HTTP methods `GET`/`POST`/`PATCH`/`DELETE` on these endpoints. You will build your own api that should interact with `nc-spotify` using the promise based library [`axios`](https://github.com/axios/axios) to make http requests.
 
 You should use Insomnia to make requests to your api and make sure you are sending back the appropriate responses.
 
 ## DAY 1
 
-To get started go to the [nc-spotify server](https://nc-spotify.herokuapp.com/) and get familiar with the endpoints available. On the site there is a readme to help navigate around the endpoints but in general the endpoints are 
+To get started go to the [nc-spotify server](https://nc-spotify.herokuapp.com/) and get familiar with the endpoints available. On the site there is a readme to help navigate around the endpoints but in general the endpoints are
 
 ```js
-`/<resource_name>/` // to interact with all of a resource e.g. albums
-`/<resource_name>/<resource_id` // to interact with a specific resource e.g. album by id
-`/resource_name?query=value` // to interact with a specific resource by any other identifier than id e.g. by chart_position
+`/<resource_name>/``/<resource_name>/<resource_id``/resource_name?query=value`; // to interact with all of a resource e.g. albums // to interact with a specific resource e.g. album by id // to interact with a specific resource by any other identifier than id e.g. by chart_position
 ```
 
 ### 1. GET all albums
@@ -99,7 +97,7 @@ ADVANCED: Make this endpoint work for multiple queries (e.g. `album` AND `chart_
 ```js
 // status 404 and
 {
-  msg: 'Song not found';
+  msg: 'Song not found'
 }
 ```
 
@@ -111,8 +109,8 @@ ADVANCED: Make this endpoint work for multiple queries (e.g. `album` AND `chart_
 
 ```js
 {
-  song: `Baby Shark`;
-  lyrics: `....`;
+  song: `Baby Shark`,
+  lyrics: `....`
 }
 ```
 
@@ -154,6 +152,7 @@ ADVANCED: Make this endpoint work for multiple queries (e.g. `album` AND `chart_
     title:'your added album title',
     artistId: 'your added artist Id'
     added: true
+  }
 }
 ```
 
@@ -163,7 +162,7 @@ ADVANCED: Make this endpoint work for multiple queries (e.g. `album` AND `chart_
 
 ```json
 {
-  "newPosition": 2;
+  "newPosition": 2
 }
 ```
 
@@ -202,7 +201,8 @@ Some example errors that could occur:
     "album": "I am Sasha Fierce",
     "chart_position": 2
   },
-  "lyrics": `"gettin' bodied\n(If you ready, get it ready) gettin' bodied\n(Let's get it and drop it) hey\nGive it up for my sister!\nAll right now\nEverybody put your hands together\nDo we have any single ladies in the house tonight?\nsing\nAll the single ladies (All the single ladies)\nAll the single ladies (All the single ladies)\nAll the s`...
+  "lyrics": `"gettin' bodied\n(If you ready, get it ready) gettin' bodied\n(Let's get it and drop it) hey\nGive it up for my sister!\nAll right now\nEverybody put your hands together\nDo we have any single ladies in the house tonight?\nsing\nAll the single ladies (All the single ladies)\nAll the single ladies (All the single ladies)\nAll the s..."`
+}
 ```
 
 ### 2. Refactor GET analysis for a song (Day 1 task 5) to get the lyrics and the analysis
@@ -243,11 +243,14 @@ Some example errors that could occur:
       "album": "Youtube Best Hits",
       "chart_position": 0
     }
+  ]
+}
 ```
 
 ### 5. Create a new branch on your project - [here's a great tutorial on git branches](https://www.atlassian.com/git/tutorials/using-branches) and refactor your GET endpoints to render EJS files.
 
 Useful links:
+
 - [Express template engines](https://expressjs.com/en/guide/using-template-engines.html)
 - [EJS](https://ejs.co/)
 - [Templating with EJS guide](https://scotch.io/tutorials/use-ejs-to-template-your-node-application)
