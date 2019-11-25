@@ -83,12 +83,12 @@ ADVANCED: Make this endpoint work for multiple queries (e.g. `album` AND `chart_
 
 ```js
 {
-  song: {
-      id: 1,
-      title: "Find No Enemy",
-      artist: "Akala",
-      album: 0,
-      chart_position: 0
+  "song": {
+    "id": 1,
+    "title": "Find No Enemy",
+    "artistId": 1,
+    "albumId": 1,
+    "chart_position": 5
   }
 }
 ```
