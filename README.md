@@ -58,9 +58,10 @@ To get started go to the [nc-spotify server](https://nc-spotify.herokuapp.com/) 
 
 Your endpoint should be able to accept the following queries:
 
-`?title` - think how you can account for spaces in your query
-`?artist_id`
-`?chart_position`
+* `?title` - think how you can account for spaces in your query
+* `?artist_id`
+* `?album_id`
+* `?chart_position`
 
 - _NOTE: treat this task as if you were using a production database with millions of entries. Be wary of fetching too much data just to filter it down. Consider what queries the server we are contacting can take._
 
