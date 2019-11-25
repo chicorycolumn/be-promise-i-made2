@@ -54,14 +54,19 @@ To get started go to the [nc-spotify server](https://nc-spotify.herokuapp.com/) 
     }...
 ```
 
-### 2.b Add some extra functionality to this endpoint, allow for a query e.g.`?album=3`to get all the songs for an album.
+### 2.b Add some extra functionality to this endpoint to allow the user to pass a query and therefore filter the results that are sent back.
 
-- _NOTE: treat this task as if you were using a production database with millions of entries. Be wary of fetching too much data just to filter it down_
+Your endpoint should be able to accept the following queries:
 
-ADVANCED: Make this endpoint work for multiple queries (e.g. `album` AND `chart_position`)
+`?title` - think how you can account for spaces in your query
+`?artist_id`
+`?chart_position`
+
+- _NOTE: treat this task as if you were using a production database with millions of entries. Be wary of fetching too much data just to filter it down. Consider what queries the server we are contacting can take._
+
+ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
 
 - _HINT: if are doing the advanced option have a look at the [axios documentation](https://github.com/axios/axios#example) for making requests with queries._
-
 ```js
 // ?album=3
 {
