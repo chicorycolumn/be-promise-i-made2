@@ -2,18 +2,19 @@ const fetchSongs = require('../models/songs-model')
 
 const getSongs = (req, res, next) => {
 
-    if (Object.keys(req.query).length === 0){
+    fetchSongs().then((allSongs)=> {   
+        console.log(req.query.albumId)
+        let readySongs = []
+console.log(1000)
+        if (Object.keys(req.query).length === 0){readySongs = allSongs.data;  console.log(2000)}
+       
+        else if (req.query.albumId !== undefined){readySongs = allSongs.data.filter(song => song.albumId === req.query.albumId); console.log(2500)}
+        console.log(3000)
 
-    fetchSongs().then((songs)=> {   
-        //console.log(songs)
-        res.send({songs: songs.data})  
+
+        res.send({songs: readySongs})  
     
     })
-
-    } else {
-        
-    }
-
 }
 
 
