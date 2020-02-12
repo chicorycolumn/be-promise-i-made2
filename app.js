@@ -1,5 +1,6 @@
 const express = require('express')
 const albumsRouter = require('./routers/albums-router')
+const songsRouter = require('./routers/songs-router')
 const axios = require('axios')
 
 
@@ -8,7 +9,7 @@ app.use(express.json())
 
 
 
-// app.use('/songs', _____Router)
+app.use('/songs', songsRouter)
 app.use('/albums', albumsRouter)
 // app.use('/artists', _____Router)
 // app.use('/lyrics', _____Router)
