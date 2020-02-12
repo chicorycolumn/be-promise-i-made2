@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "description": "a spotify themed sprint to practice using promises and third party apis",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "dev": "nodemon listen.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "axios": "^0.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
 }
