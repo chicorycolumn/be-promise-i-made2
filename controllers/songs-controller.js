@@ -1,22 +1,24 @@
-const fetchSongs = require('../models/songs-model')
+const fetchSongs = require("../models/songs-model");
 
 const getSongs = (req, res, next) => {
+  fetchSongs().then(allSongs => {
+    let readySongs = [];
 
-    fetchSongs().then((allSongs)=> {   
-        console.log(req.query.albumId)
-        let readySongs = []
-console.log(1000)
-        if (Object.keys(req.query).length === 0){readySongs = allSongs.data;  console.log(2000)}
-       
-        else if (req.query.albumId !== undefined){readySongs = allSongs.data.filter(song => song.albumId === req.query.albumId); console.log(2500)}
-        console.log(3000)
+    if (Object.keys(req.query).length === 0) {
+      readySongs = allSongs.data;
+    } else if (req.query.albumId !== undefined) {
+      readySongs = allSongs.data.filter(
+        song => song.albumId === Number(req.query.albumId)
+      );
+    } else if (req.query.artistId !== undefined) {
+      readySongs = allSongs.data.filter(
+        song => song.albumId === Number(req.query.albumId)
+      );
+    }
 
-
-        res.send({songs: readySongs})  
-    
-    })
-}
-
+    res.send({ songs: readySongs });
+  });
+};
 
 // const fetchLyrics = require...from models...
 
@@ -30,5 +32,4 @@ console.log(1000)
 // }
 // module.exports = {sendLyrics}
 
-
-module.exports = {getSongs}
+module.exports = { getSongs };
