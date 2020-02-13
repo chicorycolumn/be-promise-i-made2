@@ -65,4 +65,20 @@ const fetchAlbumById = (id) => {
 	return myPromise
 }
 
-module.exports = {fetchSongs, fetchAlbumById, fetchSongsByQuery, fetchSongById, fetchLyricsByTitle, fetchLyricsByID, fetchIdByTitle, fetchAnalysisByID}
+const updateSongDetails = (body, id) => {
+	console.log("yoooooooooooooooooooooo", body.newPosition, id)
+
+	const myPromise = axios.patch(`https://nc-spotify.herokuapp.com/songs/${id}`, 
+	{
+		"id": this.id,
+		"title": this.title,
+		"artistId": this.artistId,
+		"albumId": this.albumId,
+		"chart_position": body.newPosition
+	  }
+	).then((x)=>{return x})
+
+	return myPromise
+}
+
+module.exports = {fetchSongs, updateSongDetails, fetchAlbumById, fetchSongsByQuery, fetchSongById, fetchLyricsByTitle, fetchLyricsByID, fetchIdByTitle, fetchAnalysisByID}

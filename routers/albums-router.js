@@ -1,6 +1,7 @@
 const albumsRouter = require('express').Router()
-const {getAlbums} = require('../controllers/albums-controller')
+const {getAlbums, postNewAlbum} = require('../controllers/albums-controller')
 
 albumsRouter.get('/', getAlbums)
+albumsRouter.post('/', postNewAlbum)
 
 module.exports = albumsRouter

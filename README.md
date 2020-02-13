@@ -137,7 +137,7 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
 }
 ``` -->
 
-### 6. POST an album
+<!-- ### 6. POST an album
 
 - This endpoint should take an album title and an artist's id on the request body e.g.
 
@@ -161,7 +161,7 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
     added: true
   }
 }
-```
+``` -->
 
 ### 7. PATCH a song's chart position
 
@@ -214,9 +214,9 @@ Some example errors that could occur:
 
 ### 2. Refactor GET analysis for a song (Day 1 task 5) to get the lyrics and the analysis
 
-- _HINT: you don't need to wait for the lyrics to come back before you get the analysis_ -->
+- _HINT: you don't need to wait for the lyrics to come back before you get the analysis_ 
 
-### 3. Refactor getting a song by track_id (Day 1 task 3) to replace the album number with the album title (You may need to make a second request for that particular album).
+ ### 3. Refactor getting a song by track_id (Day 1 task 3) to replace the album number with the album title (You may need to make a second request for that particular album).
 
 ```js
 {
@@ -226,7 +226,7 @@ Some example errors that could occur:
     "album": "I am Sasha Fierce",
     "chart_position": 2
   }
-}
+} -->
 ```
 
 ### 4.a ADVANCED -- make an endpoint that will take the newData.txt file on the request body and post it to the database
