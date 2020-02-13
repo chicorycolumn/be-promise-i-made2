@@ -191,8 +191,9 @@ const getAnalysisByTitle = (req, res, next) => {
 
 
 const patchSong = (req, res, next) => {
-    console.log(23234234324, req.params.id)
+
     updateSongDetails(req.body, req.params.id).then(x => res.send(x))
+
 }
 
 

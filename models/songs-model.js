@@ -76,8 +76,8 @@ const updateSongDetails = (body, id) => {
 		"albumId": this.albumId,
 		"chart_position": body.newPosition
 	  }
-	).then((x)=>{return x})
-
+	).then(() => return axios.get(`https://nc-spotify.herokuapp.com/songs/${id}`))
+//WE ARE HERE AND IT CRASHES
 	return myPromise
 }
 
