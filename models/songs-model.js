@@ -60,7 +60,9 @@ const fetchAnalysisByID = (id) => {
 }
 
 const fetchAlbumById = (id) => {
-	const myPromise = axiom.get(`https://nc-spotify.herokuapp.com/albums/${id}`)
+	const myPromise = axios.get(`https://nc-spotify.herokuapp.com/albums/${id}`)
+
+	return myPromise
 }
 
-module.exports = {fetchSongs, fetchSongsByQuery, fetchSongById, fetchLyricsByTitle, fetchLyricsByID, fetchIdByTitle, fetchAnalysisByID}
+module.exports = {fetchSongs, fetchAlbumById, fetchSongsByQuery, fetchSongById, fetchLyricsByTitle, fetchLyricsByID, fetchIdByTitle, fetchAnalysisByID}

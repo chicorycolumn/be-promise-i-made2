@@ -1,4 +1,4 @@
-const {fetchSongs, fetchSongsByQuery, fetchSongById, fetchLyricsByID, fetchIdByTitle, fetchAnalysisByID} = require("../models/songs-model");
+const {fetchSongs, fetchSongsByQuery, fetchAlbumById, fetchSongById, fetchLyricsByID, fetchIdByTitle, fetchAnalysisByID} = require("../models/songs-model");
 
 const getSongs = (req, res, next) => {
 
@@ -58,22 +58,61 @@ const getSongs = (req, res, next) => {
 
 const getSongById = (req, res, next) => {
     
-    if (/^\d+$/.test(req.params.id)){
+    if (/^\d+$/.test(req.params.id)){ // this is extra bit i put to check if id entered was number or title
+
+    fetchSongById(req.params.id).then((songDetails)=>{
+        
+        const modifiedSongDetails = {...songDetails.data}
+        return modifiedSongDetails
+        // const albumId = modifiedSongDetails.albumId
+        // console.log(modifiedSongDetails, albumId)
+        // const carryForward = [modifiedSongDetails, albumId]
+        // return carryForward
+    })
+
+    // .then(carryForward => {
+    .then(modifiedSongDetails => {
+        
+        console.log("smello")
+
+        const albumId = modifiedSongDetails.albumId
+        // const albumId = carryForward[1]
+        // const modifiedSongDetails = carryForward[0]
+
+        Promise.all([fetchAlbumById(albumId), modifiedSongDetails]).then(arr => {
+        
+        
+            const albumTitle = arr[0].data.title
+
+            modifiedSongDetails.album = albumTitle
+            delete modifiedSongDetails.albumId
+
+            res.send({"song details AND album name": modifiedSongDetails})
+        
+        })
     
     
-    fetchSongById(req.params.id).then((specificSong)=>{
-        res.send({song: specificSong.data})
-    }).catch((err) => {res.status(404).send({msg: 'Oh no! Song not found'})})
-
-
-    } else {
-
-        fetchIdByTitle(req.params.id)
-        .then((id) => {fetchSongById(id).then((specificSong)=>{
-            res.send({song: specificSong.data})
-        }).catch((err) => {res.status(404).send({msg: 'Oh no! Song not found'})})})
-
+    })   
+ 
+    
+    .catch((err) => {res.status(404).send({msg: 'Oh no! Song not found'})})
     }
+        // modifiedSongDetails.album = //get the album name via the ID, but async!
+        
+        // delete modifiedSongDetails.albumId
+
+        // return res.send({song: modifiedSongDetails})
+
+
+
+    // } else { // meant to be same code repeated, mostly, but if title rather than number id.
+
+    //     fetchIdByTitle(req.params.id)
+    //     .then((id) => {fetchSongById(id).then((specificSong)=>{
+    //         res.send({song: specificSong.data})
+    //     }).catch((err) => {res.status(404).send({msg: 'Oh no! Song not found'})})})
+
+    // }
 }
 
 const getLyricsByTitle = (req, res, next) => {
