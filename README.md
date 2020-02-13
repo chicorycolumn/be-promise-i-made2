@@ -108,7 +108,7 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
 }
 ```
 
-### 4. GET lyrics for a song by its title.
+### 4. GET lyrics for a song by its title - NOT FINISHED
 
 - This endpoint should take a _song title_ in the url as a parametric endpoint
 - _HINT: to request the lyrics you must know the song's id first_

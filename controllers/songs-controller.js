@@ -1,4 +1,4 @@
-const {fetchSongs, fetchSongsByQuery, fetchSongById, fetchLyricsByTitle} = require("../models/songs-model");
+const {fetchSongs, fetchSongsByQuery, fetchSongById, fetchLyricsByID, fetchIdByTitle, fetchAnalysisByID} = require("../models/songs-model");
 
 const getSongs = (req, res, next) => {
 
@@ -65,17 +65,22 @@ const getSongById = (req, res, next) => {
 
 const getLyricsByTitle = (req, res, next) => {
 
-    console.log("yooooooooooooooooooo")
-    console.log(req.params.title)
+    fetchIdByTitle(req.params.title)
+    .then((id) => fetchLyricsByID(id).then(lyrics => res.send({lyrics: lyrics})))
 
-    fetchLyricsByTitle(req.params.title).then((data) => {
-        res.send({lyrics: data.data.lyrics})
-    })
+}
+
+const getAnalysisByTitle = (req, res, next) => {
+    
+    fetchIdByTitle(req.params.title)
+    .then((id) => fetchAnalysisByID(id).then(anal => res.send({analysis: anal})))
+
+    // fetchSongById(req.url).then((specificSong)=>{
+    //     res.send({song: specificSong.data})
+    // })
 
 }
 
 
 
-
-
-module.exports = { getSongs, getSongById, getLyricsByTitle };
+module.exports = { getSongs, getSongById, getLyricsByTitle, getAnalysisByTitle };
