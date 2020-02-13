@@ -9,7 +9,7 @@ To achieve this you have an api serving you Spotify data (our very own `nc-spoti
 You should use Insomnia to make requests to your api and make sure you are sending back the appropriate responses.
 
 ## DAY 1
-
+<!-- 
 To get started go to the [nc-spotify server](https://nc-spotify.herokuapp.com/) and get familiar with the endpoints available. On the site there is a readme to help navigate around the endpoints but in general the endpoints are:
 
 
@@ -108,7 +108,7 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
 }
 ```
 
-### 4. GET lyrics for a song by its title - NOT FINISHED
+### 4. GET lyrics for a song by its title
 
 - This endpoint should take a _song title_ in the url as a parametric endpoint
 - _HINT: to request the lyrics you must know the song's id first_
@@ -135,7 +135,7 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
     "sadness": 0.31
   }
 }
-```
+``` -->
 
 ### 6. POST an album
 
@@ -198,7 +198,7 @@ Some example errors that could occur:
 
 ## DAY 2 - Using Promise.all
 
-### 1. Refactor getting a song's lyrics (Day 1 task 4) to send the song object and its lyrics all at once to send together on the response in the following format:
+<!-- ### 1. Refactor getting a song's lyrics (Day 1 task 4) to send the song object and its lyrics all at once to send together on the response in the following format:
 
 ```js
 {
@@ -214,7 +214,7 @@ Some example errors that could occur:
 
 ### 2. Refactor GET analysis for a song (Day 1 task 5) to get the lyrics and the analysis
 
-- _HINT: you don't need to wait for the lyrics to come back before you get the analysis_
+- _HINT: you don't need to wait for the lyrics to come back before you get the analysis_ -->
 
 ### 3. Refactor getting a song by track_id (Day 1 task 3) to replace the album number with the album title (You may need to make a second request for that particular album).
 

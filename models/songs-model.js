@@ -14,13 +14,11 @@ const fetchSongsByQuery = (truncatedUrl) => {
 }
 
 
-const fetchSongById = (truncatedUrl) => {
-	const lyricsPromise = axios.get(`https://nc-spotify.herokuapp.com/songs${truncatedUrl}`)
+const fetchSongById = (id) => {
+	const lyricsPromise = axios.get(`https://nc-spotify.herokuapp.com/songs/${id}`)
 
 	return lyricsPromise.then((specificSong) => {return specificSong})
 }
-
-//THIS IS WHERE WE GOT TO
 
 const fetchLyricsByTitle = (title) => {
 	formattedTitle = title.replace(/\s/g, "%20")
@@ -47,7 +45,9 @@ const fetchIdByTitle = (title) => {
 	formattedTitle = title.replace(/\s/g, "%20")
 	console.log(formattedTitle)
 	const myPromise = axios.get(`https://nc-spotify.herokuapp.com/songs?title=${formattedTitle}`)
-	.then(songDetails => songDetails.data[0].id)
+	.then(songDetails => {
+		console.log(songDetails.data[0].id)
+		return songDetails.data[0].id})
 
 	return myPromise
 }
@@ -57,6 +57,10 @@ const fetchAnalysisByID = (id) => {
 	.then(allAnalyses => allAnalyses.data.filter(x => x.id === id))
 
 	return myPromise
+}
+
+const fetchAlbumById = (id) => {
+	const myPromise = axiom.get(`https://nc-spotify.herokuapp.com/albums/${id}`)
 }
 
 module.exports = {fetchSongs, fetchSongsByQuery, fetchSongById, fetchLyricsByTitle, fetchLyricsByID, fetchIdByTitle, fetchAnalysisByID}

@@ -57,29 +57,63 @@ const getSongs = (req, res, next) => {
 // module.exports = {sendLyrics}
 
 const getSongById = (req, res, next) => {
-    fetchSongById(req.url).then((specificSong)=>{
+    
+    if (/^\d+$/.test(req.params.id)){
+    
+    
+    fetchSongById(req.params.id).then((specificSong)=>{
         res.send({song: specificSong.data})
-    }).catch((err) => {res.status(404).send({msg: 'Song not found'})})
+    }).catch((err) => {res.status(404).send({msg: 'Oh no! Song not found'})})
 
+
+    } else {
+
+        fetchIdByTitle(req.params.id)
+        .then((id) => {fetchSongById(id).then((specificSong)=>{
+            res.send({song: specificSong.data})
+        }).catch((err) => {res.status(404).send({msg: 'Oh no! Song not found'})})})
+
+    }
 }
 
 const getLyricsByTitle = (req, res, next) => {
 
+    console.log("yooooooooooooooooooooooooooooooo", req.params.title)
+
     fetchIdByTitle(req.params.title)
-    .then((id) => fetchLyricsByID(id).then(lyrics => res.send({lyrics: lyrics})))
+    .then((id) => Promise.all([fetchSongById(id), fetchLyricsByID(id)])
+    .then((arr) => res.send({song: arr[0].data, lyrics: arr[1]})))
+    .catch((err) => {res.status(404).send({msg: 'Oh no! Song not found'})})
+
+    // .then((id) => Promise.all([fetchAnalysisByID(id), fetchLyricsByID(id)])
+    // .then(arr => res.send({analysis: arr[0][0], lyrics: arr[1]})))
+    // .catch((err) => {res.status(404).send({msg: 'Oh no! Song not found'})})
+    
+
+    // fetchIdByTitle(req.params.title)
+    // .then((id) => fetchLyricsByID(id).then(lyrics => res.send({lyrics: lyrics})))
+    // .catch((err) => {res.status(404).send({msg: 'Oh noo! Song not found'})})
 
 }
 
 const getAnalysisByTitle = (req, res, next) => {
     
     fetchIdByTitle(req.params.title)
-    .then((id) => fetchAnalysisByID(id).then(anal => res.send({analysis: anal})))
+    .then((id) => Promise.all([fetchAnalysisByID(id), fetchLyricsByID(id)])
+    .then(arr => res.send({analysis: arr[0][0], lyrics: arr[1]})))
+    .catch((err) => {res.status(404).send({msg: 'Oh no! Song not found'})})
+    
+    // fetchIdByTitle(req.params.title)
+    // .then((id) => fetchAnalysisByID(id).then(anal => res.send({analysis: anal})))
+    // .catch((err) => {res.status(404).send({msg: 'Oh nooo! Song not found'})})
 
-    // fetchSongById(req.url).then((specificSong)=>{
-    //     res.send({song: specificSong.data})
-    // })
+    // // fetchSongById(req.url).then((specificSong)=>{
+    // //     res.send({song: specificSong.data})
+    // // })
 
 }
+
+
 
 
 
