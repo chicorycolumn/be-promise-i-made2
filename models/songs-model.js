@@ -2,8 +2,10 @@ const axios = require('axios')
 
 const fetchSongs = () => {
 	const lyricsPromise = axios.get('https://nc-spotify.herokuapp.com/songs')
+	//.catch(res.send({msg: "why does this break it when there was no error?"}))
 
 	return lyricsPromise.then((rawSongsArray) => {return rawSongsArray})
+	//
 }
 
 
@@ -26,8 +28,7 @@ const fetchLyricsByTitle = (title) => {
 	console.log("heeyyyyyyyyyy here's formattedTitle", formattedTitle)
 
 	const lyricsPromise = axios.get(`https://nc-spotify.herokuapp.com/songs?title=${formattedTitle}`) 
-	//NOT THIS, INSTEAD YOU GOTTA FIND THE SONG BY TITLE AND THEN ID TO GET THE LYRICS
-
+	
 	return lyricsPromise.then((x) => {return x.data})
 
 }
@@ -66,18 +67,30 @@ const fetchAlbumById = (id) => {
 }
 
 const updateSongDetails = (body, id) => {
-	console.log("yoooooooooooooooooooooo", body.newPosition, id)
 
-	const myPromise = axios.patch(`https://nc-spotify.herokuapp.com/songs/${id}`, 
-	{
+	const myPromise = axios.patch(
+		
+		`https://nc-spotify.herokuapp.com/songs/${id}`, 
+	
+		{
 		"id": this.id,
 		"title": this.title,
 		"artistId": this.artistId,
 		"albumId": this.albumId,
 		"chart_position": body.newPosition
-	  }
-	).then(() => return axios.get(`https://nc-spotify.herokuapp.com/songs/${id}`))
-//WE ARE HERE AND IT CRASHES
+		  }
+		  
+	).then(x => {
+		return x.data})
+	// .catch(err => {
+
+
+	// 	if(! Object.keys(x).includes((Object.keys(body)[0]))){next()}
+
+
+
+	// })
+
 	return myPromise
 }
 

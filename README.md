@@ -163,7 +163,7 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
 }
 ``` -->
 
-### 7. PATCH a song's chart position
+<!-- ### 7. PATCH a song's chart position
 
 - This endpoint should take song identifier as a parametric value in the url and a value to change the chart position by on the request body e.g.
 
@@ -187,7 +187,7 @@ Your client response should be formatted as the following:
     "chart_position": 2
   }
 }
-```
+``` -->
 
 ### 8. Error handling - You should now go back and utilise error handling middleware and `.catch` to send tailored error messages to your user should something go wrong
 
