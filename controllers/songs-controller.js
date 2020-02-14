@@ -5,7 +5,7 @@ const getSongs = (req, res, next) => {
   fetchSongs().then(allSongs => {
     let readySongs = allSongs.data;
     res.send({ songs: readySongs });
-  });
+  }).catch(console.log(err))
 } else {
 
     fetchSongsByQuery(req.url).then(queriedSongs => {
@@ -40,10 +40,13 @@ const getSongById = (req, res, next) => {
         res.send({"song details AND album name": modifiedSongDetails})
     })
      
-    // .catch((err) => {
-    //     console.log(err)
-    //     res.status(404).send({msg: 'Oh no! Song not found'})
-    // })
+    .catch((err) => {
+        //console.log(err)
+
+        next ( err ) 
+
+        //res.status(404).send({msg: 'Oh no! Song not found'})
+    })
 }
 
 //GET SONG BY ID - LEGACY VERSION

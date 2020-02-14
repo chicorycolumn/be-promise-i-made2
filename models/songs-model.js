@@ -2,7 +2,6 @@ const axios = require('axios')
 
 const fetchSongs = () => {
 	const lyricsPromise = axios.get('https://nc-spotify.herokuapp.com/songs')
-	//.catch(res.send({msg: "why does this break it when there was no error?"}))
 
 	return lyricsPromise.then((rawSongsArray) => {return rawSongsArray})
 	//

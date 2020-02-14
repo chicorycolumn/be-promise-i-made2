@@ -13,8 +13,13 @@ app.use('/albums', albumsRouter)
 // app.use('/analyses', _____Router)
 // app.use('/db', _____Router)
 
-app.use(function(err, req, res, next) {
-    if (err.status === 404) {
+
+ // NOTE THE ORDER HERE, RE ERROR HANDLING NEXTS
+
+
+ app.use(function(err, req, res, next) {
+  console.log(err)
+    if (err.response.status === 404) { // **********************************
       res.status(404).send({ msg: 'ahhhhh this does not exist' });
     } else if (err.status === 400) {
         res.status(400).send({ msg: 'ahhhhh you entered bad data'});
